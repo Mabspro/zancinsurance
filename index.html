@@ -109,31 +109,31 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-8">Enroll Now</h2>
                 <div class="max-w-2xl mx-auto">
-                <form name="enrollment" method="POST" data-netlify="true" id="enrollmentForm" class="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                    <input type="hidden" name="form-name" value="enrollment">
+                    <form name="enrollment" method="POST" data-netlify="true" id="enrollmentForm" class="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <input type="hidden" name="form-name" value="enrollment">
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">
                                 Full Name
                             </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fullName" type="text" placeholder="John Doe" required>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fullName" name="fullName" type="text" placeholder="John Doe" required>
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
                                 Email
                             </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="john@example.com" required>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" placeholder="john@example.com" required>
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
                                 Phone Number
                             </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="tel" placeholder="(123) 456-7890" required>
+                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required>
                         </div>
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="coverageType">
                                 Coverage Type
                             </label>
-                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="coverageType" required>
+                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="coverageType" name="coverageType" required>
                                 <option value="">Select coverage type</option>
                                 <option value="adult-sacramento">Adult - Sacramento</option>
                                 <option value="adult-outstate">Adult - Out of State</option>
@@ -144,7 +144,7 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="paymentMethod">
                                 Preferred Payment Method
                             </label>
-                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="paymentMethod" required>
+                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="paymentMethod" name="paymentMethod" required>
                                 <option value="">Select payment method</option>
                                 <option value="creditCard">Credit Card</option>
                                 <option value="zelle">Zelle</option>
@@ -187,7 +187,6 @@
                             <li class="mb-2"><strong>Sunday:</strong> Closed</li>
                         </ul>
                     </div>
-                </div>
                 </div>
             </div>
         </section>
