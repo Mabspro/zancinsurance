@@ -13,21 +13,35 @@
     </style>
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans">
-        <header class="bg-blue-900 text-white shadow-lg">
-            <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
-                <div class="flex items-center">
-                    <img src="images/zanc_logo.png" alt="ZamShield Logo" class="h-12 w-12 mr-3">
-                    <a href="#" class="text-2xl font-bold">ZamShield</a>
-                </div>
-                <div>
-                    <a href="#about" class="text-lg hover:text-blue-300 mx-3">About</a>
-                    <a href="#coverage" class="text-lg hover:text-blue-300 mx-3">Coverage</a>
-                    <a href="#enroll" class="text-lg hover:text-blue-300 mx-3">Enroll</a>
-                    <a href="#contact" class="text-lg hover:text-blue-300 mx-3">Contact</a>
-                </div>
-            </nav>
-        </header>
-
+    <header class="bg-blue-900 text-white shadow-lg">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="images/zanc_logo.png" alt="ZamShield Logo" class="h-12 w-12 mr-3">
+                <a href="#" class="text-2xl font-bold">ZamShield</a>
+            </div>
+            <div class="block lg:hidden">
+                <button id="nav-toggle" class="text-white focus:outline-none">
+                    <svg class="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+            <div class="hidden lg:flex lg:items-center">
+                <a href="#about" class="text-lg hover:text-blue-300 mx-3">About</a>
+                <a href="#coverage" class="text-lg hover:text-blue-300 mx-3">Coverage</a>
+                <a href="#enroll" class="text-lg hover:text-blue-300 mx-3">Enroll</a>
+                <a href="#contact" class="text-lg hover:text-blue-300 mx-3">Contact</a>
+            </div>
+        </nav>
+        <div id="nav-content" class="hidden lg:hidden">
+            <ul class="px-2 pt-2 pb-4">
+                <li><a href="#about" class="block text-lg px-2 py-1 hover:bg-blue-700">About</a></li>
+                <li><a href="#coverage" class="block text-lg px-2 py-1 hover:bg-blue-700">Coverage</a></li>
+                <li><a href="#enroll" class="block text-lg px-2 py-1 hover:bg-blue-700">Enroll</a></li>
+                <li><a href="#contact" class="block text-lg px-2 py-1 hover:bg-blue-700">Contact</a></li>
+            </ul>
+        </div>
+    </header>
 
     <main>
         <section id="hero" class="hero-pattern text-white py-20">
@@ -179,7 +193,7 @@
                         <p class="text-gray-700 leading-relaxed mb-4">Have questions about ZamShield? Our team is here to help. Reach out to us using the contact information below.</p>
                         <ul class="text-gray-700 leading-relaxed">
                             <li class="mb-2"><strong>Beene:</strong> (530) 329-6321</li>
-                            <li class="mb-2"><strong>Lusayo:</strong> (714) 423-5323)</li>
+                            <li class="mb-2"><strong>Lusayo:</strong> (714) 423-5323</li>
                             <li class="mb-2"><strong>Email:</strong> zancsac@gmail.com</li>
                         </ul>
                     </div>
@@ -208,6 +222,12 @@
         var form = document.getElementById('enrollmentForm');
         var successMessage = document.getElementById('successMessage');
         var errorMessage = document.getElementById('errorMessage');
+        var navToggle = document.getElementById('nav-toggle');
+        var navContent = document.getElementById('nav-content');
+
+        navToggle.addEventListener('click', function() {
+            navContent.classList.toggle('hidden');
+        });
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
