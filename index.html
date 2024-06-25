@@ -109,7 +109,8 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-8">Enroll Now</h2>
                 <div class="max-w-2xl mx-auto">
-                    <form id="enrollmentForm" class="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <form id="enrollmentForm" method="POST" data-netlify="true" name="enrollment">
+                        <input type="hidden" name="form-name" value="enrollment">
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">
                                 Full Name
