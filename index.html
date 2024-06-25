@@ -109,8 +109,8 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-8">Enroll Now</h2>
                 <div class="max-w-2xl mx-auto">
-                    <form id="enrollmentForm" method="POST" data-netlify="true" name="enrollment" action="/success.html">
-                      <input type="hidden" name="form-name" value="enrollment">
+                <form name="enrollment" method="POST" data-netlify="true" id="enrollmentForm" class="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <input type="hidden" name="form-name" value="enrollment">
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">
                                 Full Name
@@ -157,6 +157,10 @@
                             </button>
                         </div>
                     </form>
+                    <div id="successMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block sm:inline">Your enrollment has been submitted successfully.</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -183,4 +187,45 @@
                             <li class="mb-2"><strong>Sunday:</strong> Closed</li>
                         </ul>
                     </div>
-                
+                </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 ZANC ZamShield Group Life Insurance. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('enrollmentForm');
+        var successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(form);
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    form.reset();
+                    form.style.display = 'none';
+                    successMessage.classList.remove('hidden');
+                } else {
+                    alert('There was an error submitting the form. Please try again.');
+                }
+            })
+            .catch(function(error) {
+                alert('There was an error submitting the form. Please try again.');
+            });
+        });
+    });
+    </script>
+</body>
+</html>
