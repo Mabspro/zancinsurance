@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZANC ZamShield Group Life Insurance</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
     <style>
         .hero-pattern {
             background-color: #1a202c;
@@ -166,8 +167,9 @@
                                 <option value="directDeposit">Direct Deposit</option>
                             </select>
                         </div>
+                        <div id="paypal-button-container" class="hidden"></div>
                         <div class="flex items-center justify-between">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" type="submit">
+                            <button id="submitEnrollment" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" type="submit">
                                 Submit Enrollment
                             </button>
                         </div>
@@ -224,6 +226,8 @@
         var errorMessage = document.getElementById('errorMessage');
         var navToggle = document.getElementById('nav-toggle');
         var navContent = document.getElementById('nav-content');
+        var submitButton = document.getElementById('submitEnrollment');
+        var paypalButtonContainer = document.getElementById('paypal-button-container');
 
         navToggle.addEventListener('click', function() {
             navContent.classList.toggle('hidden');
@@ -232,26 +236,44 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             var formData = new FormData(form);
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(function(response) {
-                if (response.ok) {
-                    form.reset();
-                    form.style.display = 'none';
-                    successMessage.classList.remove('hidden');
-                    errorMessage.classList.add('hidden');
-                } else {
-                    errorMessage.classList.remove('hidden');
-                    console.error('Error:', response.statusText);
+
+            paypalButtonContainer.classList.remove('hidden');
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: '100.00' // Update with the correct amount
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        // After payment is approved, submit the form data to Netlify
+                        fetch('/', {
+                            method: 'POST',
+                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                            body: new URLSearchParams(formData).toString()
+                        })
+                        .then(function(response) {
+                            if (response.ok) {
+                                form.reset();
+                                form.style.display = 'none';
+                                successMessage.classList.remove('hidden');
+                                errorMessage.classList.add('hidden');
+                            } else {
+                                errorMessage.classList.remove('hidden');
+                                console.error('Error:', response.statusText);
+                            }
+                        })
+                        .catch(function(error) {
+                            errorMessage.classList.remove('hidden');
+                            console.error('Error:', error);
+                        });
+                    });
                 }
-            })
-            .catch(function(error) {
-                errorMessage.classList.remove('hidden');
-                console.error('Error:', error);
-            });
+            }).render('#paypal-button-container');
         });
     });
     </script>
