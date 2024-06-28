@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZANC ZamShield Group Life Insurance</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
     <style>
         .hero-pattern {
             background-color: #1a202c;
@@ -30,7 +29,7 @@
             <div class="hidden lg:flex lg:items-center">
                 <a href="#about" class="text-lg hover:text-blue-300 mx-3">About</a>
                 <a href="#coverage" class="text-lg hover:text-blue-300 mx-3">Coverage</a>
-                <a href="#enroll" class="text-lg hover:text-blue-300 mx-3">Enroll</a>
+                <a href="enroll.html" class="text-lg hover:text-blue-300 mx-3">Enroll</a>
                 <a href="#contact" class="text-lg hover:text-blue-300 mx-3">Contact</a>
                 <a href="#calculator" class="text-lg hover:text-blue-300 mx-3">Calculator</a>
             </div>
@@ -39,7 +38,7 @@
             <ul class="px-2 pt-2 pb-4">
                 <li><a href="#about" class="block text-lg px-2 py-1 hover:bg-blue-700">About</a></li>
                 <li><a href="#coverage" class="block text-lg px-2 py-1 hover:bg-blue-700">Coverage</a></li>
-                <li><a href="#enroll" class="block text-lg px-2 py-1 hover:bg-blue-700">Enroll</a></li>
+                <li><a href="enroll.html" class="block text-lg px-2 py-1 hover:bg-blue-700">Enroll</a></li>
                 <li><a href="#contact" class="block text-lg px-2 py-1 hover:bg-blue-700">Contact</a></li>
                 <li><a href="#calculator" class="block text-lg px-2 py-1 hover:bg-blue-700">Calculator</a></li>
             </ul>
@@ -51,7 +50,7 @@
             <div class="container mx-auto px-6 text-center">
                 <h1 class="text-5xl font-bold mb-4">Protect Your Future with ZamShield</h1>
                 <p class="text-xl mb-8">Exclusive group life insurance for the Zambian community in Northern California</p>
-                <a href="#enroll" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">Enroll Now</a>
+                <a href="enroll.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full text-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110">Enroll Now</a>
             </div>
         </section>
 
@@ -155,71 +154,6 @@
             </div>
         </section>
 
-        <section id="enroll" class="py-20 bg-white">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl font-bold text-center mb-8">Enroll Now</h2>
-                <div class="max-w-2xl mx-auto">
-                    <form name="enrollment" method="POST" data-netlify="true" id="enrollmentForm" class="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                        <input type="hidden" name="form-name" value="enrollment">
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="fullName">
-                                Full Name
-                            </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="fullName" name="fullName" type="text" placeholder="John Doe" required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
-                                Email
-                            </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name="email" type="email" placeholder="john@example.com" required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="phone">
-                                Phone Number
-                            </label>
-                            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" name="phone" type="tel" placeholder="(123) 456-7890" required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="coverageType">
-                                Coverage Type
-                            </label>
-                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="coverageType" name="coverageType" required>
-                                <option value="">Select coverage type</option>
-                                <option value="adult-sacramento">Adult - Sacramento</option>
-                                <option value="adult-outstate">Adult - Out of State</option>
-                                <option value="child">Child (below 21 years)</option>
-                            </select>
-                        </div>
-                        <div class="mb-6">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="paymentMethod">
-                                Preferred Payment Method
-                            </label>
-                            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="paymentMethod" name="paymentMethod" required>
-                                <option value="">Select payment method</option>
-                                <option value="creditCard">Credit Card</option>
-                                <option value="zelle">Zelle</option>
-                                <option value="directDeposit">Direct Deposit</option>
-                            </select>
-                        </div>
-                        <div id="paypal-button-container" class="hidden"></div>
-                        <div class="flex items-center justify-between">
-                            <button id="submitEnrollment" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" type="button">
-                                Submit Enrollment
-                            </button>
-                        </div>
-                    </form>
-                    <div id="successMessage" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                        <strong class="font-bold">Success!</strong>
-                        <span class="block sm:inline">Your enrollment has been submitted successfully.</span>
-                    </div>
-                    <div id="errorMessage" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        <strong class="font-bold">Error!</strong>
-                        <span class="block sm:inline">There was an error submitting the form. Please try again.</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section id="contact" class="py-20 bg-gray-100">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-8">Contact Us</h2>
@@ -255,13 +189,8 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var form = document.getElementById('enrollmentForm');
-        var successMessage = document.getElementById('successMessage');
-        var errorMessage = document.getElementById('errorMessage');
         var navToggle = document.getElementById('nav-toggle');
         var navContent = document.getElementById('nav-content');
-        var submitButton = document.getElementById('submitEnrollment');
-        var paypalButtonContainer = document.getElementById('paypal-button-container');
         var ageInput = document.getElementById('age');
         var locationInput = document.getElementById('location');
         var calculateButton = document.getElementById('calculate');
@@ -291,47 +220,6 @@
             } else {
                 premiumResult.classList.add('hidden');
             }
-        });
-
-        submitButton.addEventListener('click', function() {
-            paypalButtonContainer.classList.remove('hidden');
-            paypal.Buttons({
-                createOrder: function(data, actions) {
-                    return actions.order.create({
-                        purchase_units: [{
-                            amount: {
-                                value: '100.00' // Update with the correct amount
-                            }
-                        }]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    return actions.order.capture().then(function(details) {
-                        // After payment is approved, submit the form data to Netlify
-                        var formData = new FormData(form);
-                        fetch('/', {
-                            method: 'POST',
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: new URLSearchParams(formData).toString()
-                        })
-                        .then(function(response) {
-                            if (response.ok) {
-                                form.reset();
-                                form.style.display = 'none';
-                                successMessage.classList.remove('hidden');
-                                errorMessage.classList.add('hidden');
-                            } else {
-                                errorMessage.classList.remove('hidden');
-                                console.error('Error:', response.statusText);
-                            }
-                        })
-                        .catch(function(error) {
-                            errorMessage.classList.remove('hidden');
-                            console.error('Error:', error);
-                        });
-                    });
-                }
-            }).render('#paypal-button-container');
         });
     });
     </script>
