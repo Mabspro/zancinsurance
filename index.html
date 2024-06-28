@@ -32,6 +32,7 @@
                 <a href="#coverage" class="text-lg hover:text-blue-300 mx-3">Coverage</a>
                 <a href="#enroll" class="text-lg hover:text-blue-300 mx-3">Enroll</a>
                 <a href="#contact" class="text-lg hover:text-blue-300 mx-3">Contact</a>
+                <a href="#calculator" class="text-lg hover:text-blue-300 mx-3">Calculator</a>
             </div>
         </nav>
         <div id="nav-content" class="hidden lg:hidden">
@@ -40,6 +41,7 @@
                 <li><a href="#coverage" class="block text-lg px-2 py-1 hover:bg-blue-700">Coverage</a></li>
                 <li><a href="#enroll" class="block text-lg px-2 py-1 hover:bg-blue-700">Enroll</a></li>
                 <li><a href="#contact" class="block text-lg px-2 py-1 hover:bg-blue-700">Contact</a></li>
+                <li><a href="#calculator" class="block text-lg px-2 py-1 hover:bg-blue-700">Calculator</a></li>
             </ul>
         </div>
     </header>
@@ -121,6 +123,38 @@
             </div>
         </section>
 
+        <section id="calculator" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-8">Insurance Calculator</h2>
+                <div class="max-w-2xl mx-auto bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="age">
+                            Age
+                        </label>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="age" type="number" placeholder="Enter your age">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="location">
+                            Location
+                        </label>
+                        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="location">
+                            <option value="">Select your location</option>
+                            <option value="in-state">In-State</option>
+                            <option value="out-of-state">Out-of-State</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <button id="calculate" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" type="button">
+                            Calculate Premium
+                        </button>
+                    </div>
+                    <div id="premiumResult" class="mt-4 hidden">
+                        <p class="text-lg text-gray-700">Your estimated premium is: <span id="premiumAmount"></span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="enroll" class="py-20 bg-white">
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold text-center mb-8">Enroll Now</h2>
@@ -169,7 +203,7 @@
                         </div>
                         <div id="paypal-button-container" class="hidden"></div>
                         <div class="flex items-center justify-between">
-                            <button id="submitEnrollment" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" type="submit">
+                            <button id="submitEnrollment" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out" type="button">
                                 Submit Enrollment
                             </button>
                         </div>
@@ -228,15 +262,38 @@
         var navContent = document.getElementById('nav-content');
         var submitButton = document.getElementById('submitEnrollment');
         var paypalButtonContainer = document.getElementById('paypal-button-container');
+        var ageInput = document.getElementById('age');
+        var locationInput = document.getElementById('location');
+        var calculateButton = document.getElementById('calculate');
+        var premiumResult = document.getElementById('premiumResult');
+        var premiumAmount = document.getElementById('premiumAmount');
 
         navToggle.addEventListener('click', function() {
             navContent.classList.toggle('hidden');
         });
 
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            var formData = new FormData(form);
+        calculateButton.addEventListener('click', function() {
+            var age = parseInt(ageInput.value, 10);
+            var location = locationInput.value;
+            var premium = 0;
 
+            if (!isNaN(age) && location) {
+                if (age <= 21) {
+                    premium = 3.60; // Flat rate for children
+                } else if (location === 'in-state') {
+                    premium = 108 + 60; // In-state adult
+                } else {
+                    premium = 108 + 30; // Out-of-state adult
+                }
+
+                premiumAmount.textContent = `$${premium.toFixed(2)}`;
+                premiumResult.classList.remove('hidden');
+            } else {
+                premiumResult.classList.add('hidden');
+            }
+        });
+
+        submitButton.addEventListener('click', function() {
             paypalButtonContainer.classList.remove('hidden');
             paypal.Buttons({
                 createOrder: function(data, actions) {
@@ -251,6 +308,7 @@
                 onApprove: function(data, actions) {
                     return actions.order.capture().then(function(details) {
                         // After payment is approved, submit the form data to Netlify
+                        var formData = new FormData(form);
                         fetch('/', {
                             method: 'POST',
                             headers: { "Content-Type": "application/x-www-form-urlencoded" },
